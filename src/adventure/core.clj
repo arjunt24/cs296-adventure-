@@ -3,87 +3,82 @@
 
 
 (def init-map
-  {:room0 {:desc "The zeroth room"
-           :title "Room 0"
-           :dir {:north :room1 :east :room2 :south :room3 :west :room4}
-           :contents #{:object0}}
-   :room1 {:desc "The first room"
-            :title "Room 1"
-            :dir {:north :room5 :south :room0}
-            :contents #{:object1}}
-   :room2 {:desc "The second room"
-            :title "Room 2"
-            :dir {:east :room6 :west :room0}
-            :contents #{:object2}}
-   :room3 {:desc "The third room"
-            :title "Room 3"
-            :dir {:south :room7 :north :room0}
-            :contents #{:object3}}
-   :room4 {:desc "The fourth room"
-            :title "Room 4"
-            :dir {:west :room8 :east :room0}
-            :contents #{:object4}}
-    :room5 {:desc "The fifth room"
-             :title "Room 5"
-             :dir {:south :room1}
-             :contents #{:object5}}
-    :room6 {:desc "The sixth room"
-             :title "Room 6"
-             :dir {:west :room2}
-             :contents #{:object6}}
-    :room7 {:desc "The seventh room"
-             :title "Room 7"
-             :dir {:north :room3}
-             :contents #{:object7}}
-    :room8 {:desc "The eighth room"
-             :title "Room 8"
-             :dir {:east :room4}
-             :contents #{:object8}}
+  {:akron {:desc "Your hometown and birthplace. It feels like ultimately, this is where you belong."
+           :title "Akron"
+           :dir {:north :springfield :east :cleveland :south :miami :west :los-angeles}
+           :contents #{:top-draft-pick}}
+   :springfield {:desc "The birthplace of basketball, Springfield is steeped in basketball history. There is a very ominous feeling..."
+            :title "Springfield"
+            :dir {:south :akron };:north :hall-of-fame}
+            :contents #{}}
+   :cleveland {:desc "Your hometown Cleveland Cavaliers. You will always have a home here; this team will always be all yours."
+            :title "Cleveland"
+            :dir {:east :nba-awards-show :west :akron}
+            :contents #{:scoring-title}}
+   :miami {:desc "It's time to get serious and win a ring; you decide to team up with other superstars on the Miami Heat."
+            :title "Miami"
+            :dir {:south :nba-finals :north :akron}
+            :contents #{:first-seed}}
+   :los-angeles {:desc "You were always meant for the lights and glamour; it's time to shine with the LA Lakers, the greatest franchise in the NBA."
+            :title "Los-Angeles"
+            :dir {:west :staples-center :east :akron}
+            :contents #{:rebounding-title :assists-title}}
+    :hall-of-fame {:desc "The Naismith Memorial Basketball Hall of Fame celebrates the greatest basketball players of history - like you."
+             :title "Hall-of-Fame"
+             :dir {:south :springfield}
+             :contents #{}}
+    :nba-awards-show {:desc "The annual showcase of the best NBA players from the last year."
+             :title "NBA-Awards-Show"
+             :dir {:west :cleveland}
+             :contents #{:mvp}}
+    :nba-finals {:desc "It's the moment of truth: the NBA Finals."
+             :title "NBA-Finals"
+             :dir {:north :miami}
+             :contents #{:championship-ring :finals-mvp}}
+    :staples-center {:desc "The historic and spectacular home of the LA Lakers."
+             :title "Staples Center"
+             :dir {:east :los-angeles}
+             :contents #{:all-nba-first-team}}
   })
 
 (def init-items
-    {:object0 {:desc "The zeroth obj"
-               :name "Object0" }
-    :object1 {:desc "The first obj"
-               :name "Object1" }
-    :object2 {:desc "The second obj"
-               :name "Object2" }
-    :object3 {:desc "The third obj"
-               :name "Object3" }
-    :object4 {:desc "The four obj"
-               :name "Object4" }
-    :object5 {:desc "The five obj"
-               :name "Object5" }
-    :object6 {:desc "The six obj"
-               :name "Object6" }
-    :object7 {:desc "The seven obj"
-               :name "Object7" }
-    :object8 {:desc "The eight obj"
-               :name "Object8" }
-    :objectwin {:desc "The victory obj"
-               :name "ObjectWin" }
-
+    {:scoring-title {:desc "The title given to the most prolific scorer of the season, very few have the honor of holding this title"
+               :name "Scoring-Title" }
+    :assists-title {:desc "The title given to the most generous playmaker of the season, very few have the honor of holding this title"
+               :name "Assists-Title" }
+    :rebounding-title {:desc "The title given to the king of the boards, very few have the honor of holding this title"
+               :name "Rebounding-Title" }
+    :mvp {:desc "The title given to the very best player that season, every MVP has made it to the hall of fame"
+               :name "MVP" }
+    :finals-mvp {:desc "The title given to the strongest player of the NBA Finals"
+               :name "Finals-MVP" }
+    :championship-ring {:desc "The most prized possession in the NBA"
+               :name "Championship-Ring" }
+    :top-draft-pick {:desc "The honor of being first selection among the class of new NBA players"
+               :name "Top-Draft-Pick" }
+    :all-nba-first-team {:desc "The seven obj"
+               :name "All-NBA-First-Team" }
+    :first-seed {:desc "A distinction given to the player who has lead his team to be above all others"
+               :name "First-Seed" }
+    :orange-jacket {:desc "The most sought-after honor in the sport; once in possession of the Orange-Jacket, one is truly the GOAT"
+               :name "Orange-Jacket" }
   })
 
 (def init-adventurer
-    {:location :room0
+    {:location :akron
      :inventory #{}
-     :key3 "val"
-     :key4 "val"
+     :eligibility #{:mvp :fmvp :first}
+     :seasons 0
      :tick 0
-     :seen #{:room0}})
+     :seen #{:akron}})
 
 (def init-state {:map init-map :items init-items :adventurer init-adventurer})
 
 
 (defn printState [state]
   (println "map: ")
-    ;(println (get-in state [:map]))
-    (def rooms [:room0 :room1 :room2 :room3 :room4 :room5 :room6 :room7 :room8])
-    ;(println (range (count rooms)))
+    (def rooms [:akron :springfield :cleveland :miami :los-angeles :hall-of-fame :nba-awards-show :nba-finals :staples-center])
     (doseq [i (range (count rooms))]
-      ;(println "hello "))
-      ;(def room-attributes [:desc :title :dir :contents])
       (println "  " (nth rooms i) "  " (get-in state [:map (nth rooms i)])))
   (println "adventurer: ")
     (def adv-attributes [:location :inventory :key3 :key3 :tick :seen])
@@ -95,9 +90,12 @@
       (println "  " (nth items i) "  " (get-in state [:items (nth items i)]))))
 
 
-(defn go [state dir]
-  (let [location (get-in state [:adventurer :location])
-        dest ((get-in state [:map location :dir]) dir)]
+(defn go [istate dir]
+  (let [location (get-in istate [:adventurer :location])
+        dest ((get-in istate [:map location :dir]) dir)]
+    (if (or (= dest :cleveland) (= dest :miami) (= dest :los-angeles))
+        (def state (update-in istate [:adventurer :seasons] #(inc (inc %))))
+        (def state istate))
     (if (nil? dest)
       (do (println "You can't go that way.")
           state)
@@ -109,19 +107,19 @@
 
 (defn examine [state item]
   (if-let [val (get-in state [:map (get-in state [:adventurer :location]) :contents item])]
-    (println (get-in state [:items item :desc]))
+    (println (str (get-in state [:items item :name]) ": " (get-in state [:items item :desc])))
     (if-let [val (get-in state [:adventurer :inventory item])]
-      (println (get-in state [:items item :desc]))
-      (println "item not in room or inventory")))
+      (println (str (get-in state [:items item :name]) ": " (get-in state [:items item :desc])))
+      (println "Object not in room or inventory")))
   state)
 
 (defn look [state]
   (do
     (print (get-in state [:map (get-in state [:adventurer :location]) :desc]))
     (let [items (vec (get-in state [:map (get-in state [:adventurer :location]) :contents]))]
-    (print ". Items: ")
+    (print " Items: ")
       (if (= (count items) 0)
-        (print "none.")
+        (print "none. ")
       (doseq [i (range (count items))]
         (print (get-in init-state [:items (items i) :name]))
         (if (= i (- (count items) 1))
@@ -134,7 +132,8 @@
       (doseq [i (range (/ (count dirs) 1))]
         (if (= (+ i 1) (count dirs))
           (println (name ((dirs i) 0)) (str "- "(name ((dirs i) 1)) ". "))
-          (print (name ((dirs i) 0)) (str "- "(name ((dirs i) 1)) ", "))
+          (print (name ((dirs i) 0)) (str "- " (get-in state [:map ((dirs i) 1) :title]) ", "))
+          ; (print (name ((dirs i) 0)) (str "- "(name ((dirs i) 1)) ", "))
           ))))
   state))
 
@@ -152,16 +151,28 @@
         ))))
   state))
 
-(defn take [state item]
+(defn takee [istate item]
+  (if (= item :mvp)
+    (def tstate (update-in istate [:adventurer :eligibility] #(disj % :mvp)))
+  (if (= item :finals-mvp)
+    (def tstate (update-in istate [:adventurer :eligibility] #(disj % :fmvp)))
+  (if (= item :all-nba-first-team)
+    (def tstate (update-in istate [:adventurer :eligibility] #(disj % :first)))
+    (def tstate istate))))
+  (if (empty? (get-in tstate [:adventurer :eligibility]))
+    (do (println "You are now elibigble for the Hall of Fame!")
+    (def ttstate (update-in tstate [:adventurer :eligibility] #(conj % :dummy)))
+    (def state (update-in ttstate [:map :springfield :dir] #(merge % {:north :hall-of-fame}) ))
+    )
+    (def state tstate))
   (inventory
   (if-let [val (get-in state [:map (get-in state [:adventurer :location]) :contents item])]
     (let [new-state (update-in state [:adventurer :inventory] #(conj % item))]
       (let [newnew-state (update-in new-state [:map (get-in state [:adventurer :location]) :contents] #(disj % item))]
-        ;(printState newnew-state)
         newnew-state))
   state)))
 
-(defn drop [state item]
+(defn dropp [state item]
   (inventory
   (if-let [val (get-in state [:adventurer :inventory item])]
     (let [new-state (update-in state [:adventurer :inventory] #(disj % item))]
@@ -170,36 +181,40 @@
   state)))
 
 (defn actually-transform [state]
-  (def new-state (update-in state [:adventurer :inventory] #(conj % :objectwin)))
-  (def new-new-state (update-in new-state [:adventurer :inventory] #(disj % :object8)))
-  (println "Object8 has transformed into ObjectWin!")
+  (def new-state (update-in state [:adventurer :inventory] #(conj % :orange-jacket)))
+  (def new-new-state (update-in new-state [:adventurer :inventory] #(disj % :mvp :finals-mvp :all-nba-first-team)))
+  (println "Your MVP, Finals' MVP, and All-NBA First Team have transformed into an Orange-Jacket!")
   new-new-state
 )
 
-(defn transform [state item]
-  (if (= item :object8)
+(defn transform [state]
     (do
-      (if-let [val (get-in state [:adventurer :inventory :object8])]
-        (if (= :room5 (get-in state [:adventurer :location]))
-          (def new-state (actually-transform state))
-          (do (print "you can't transform here") (def new-state state)))
-        (do (print "you dont have object 8") (def new-state state)))
+      (if (= :hall-of-fame (get-in state [:adventurer :location]))
+          (if-let [val (get-in state [:adventurer :inventory :mvp])]
+          (if-let [val (get-in state [:adventurer :inventory :finals-mvp])]
+          (if-let [val (get-in state [:adventurer :inventory :all-nba-first-team])]
+                (def new-state (actually-transform state))
+            (do (print "You dont have the necessary awards with you") (def new-state state)))
+            (do (print "You dont have the necessary awards with you") (def new-state state)))
+            (do (print "You dont have the necessary awards with you") (def new-state state)))
+        (do (print "You can't retire here") (def new-state state)))
         new-state
       )
-    (do
-      (print "you can't transform that!")
-      state
-      ))
 )
 
 (defn help [state]
+  (println "How to play:")
   (println "type 'go north' or 'n' to go north")
   (println "type 'look' to look around")
-  (println "type 'take obj' to pick up an object")
-  (println "type 'drop obj' to drop an object")
+  (println "type 'take (object name)' to pick up an object")
+  (println "type 'drop or place (object name)' to drop an object")
+  (println "type 'examine (object name)' to examine an object")
   (println "type 'i' to look at inventory")
-  (println "type 'transform obj' to try to transform the object")
-  (println "goal of the game: find object8, take it to room5, transform it to ObjectWin, then place ObjectWin in room7")
+  (println "type 'transform' to try to retire")
+  (println "type 'help' to see these instructions")
+  (println "How to win: \ncollect the MVP, Finals' MVP, and All-NBA First Team. Take these awards to the Hall of Fame and ")
+  (println "retire. Then, place your Orange Jacket in your home in Akron and rest peacefully as a GOAT.")
+
 
   state)
 
@@ -231,17 +246,18 @@
           (if (= x "help") (help state)
           (if (or (= x "i") (= x "inventory")) (inventory state)
           (if (= x "print") (do (printState state) state)
-          (let [ret "invalid input"] (println ret) state))))))))))
+          (if (= x "retire") (transform state)
+          (let [ret "invalid input"] (println ret) state)))))))))))
      ["go" "@"]
         (fn [x] (go state (keyword x)))
      ["examine" "@"]
         (fn [x] (examine state (keyword x)))
      ["take" "@"]
-        (fn [x] (take state (keyword x)))
+        (fn [x] (takee state (keyword x)))
      ["drop" "@"]
-        (fn [x] (drop state (keyword x)))
-     ["transform" "@"]
-        (fn [x] (transform state (keyword x)))])
+        (fn [x] (dropp state (keyword x)))
+     ["place" "@"]
+        (fn [x] (dropp state (keyword x)))])
 
 
 (defn react [state baseinput]
@@ -259,8 +275,8 @@
   "Initialize the adventure"
   [& args]
   (loop [local-state {:map init-map :adventurer init-adventurer :items init-items}]
-  (if-let [val (get-in local-state [:map :room7 :contents :objectwin])]
-    (println (str "\nYou win! You finished in " (get-in local-state [:adventurer :tick]) " moves."))
+  (if-let [val (get-in local-state [:map :akron :contents :orange-jacket])]
+    (println (str "\nYou have achieved GOAT status! You finished in " (get-in local-state [:adventurer :tick]) " moves and " (get-in local-state [:adventurer :seasons]) " seasons."))
 
     (do (print (str "\nYou are at " (get-in local-state [:map (get-in local-state [:adventurer :location]) :title]) ". "))
     (let [
@@ -269,3 +285,13 @@
       (if (= command "quit") (println "bye!")
         (let [new-state (react local-state command)]
         (recur new-state))))))))
+
+
+(defn -main []
+  (println "Hello LeBron James! You have potential to be one of the greatest basketball players of all time - the ")
+  (println "potential to be a GOAT. You can travel through time and space to collect various achievments throughout ")
+  (println "your career (some useful, some not). In order to achieve GOAT status, you must collect the MVP, Finals' ")
+  (println "MVP, and All-NBA First Team. Take these awards to the Hall of Fame and retire; then, place your Orange")
+  (println "Jacket in your home in Akron and rest peacefully as a GOAT.\n")
+  (help {})
+  (repl))
